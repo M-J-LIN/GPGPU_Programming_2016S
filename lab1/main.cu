@@ -31,11 +31,13 @@ int main(int argc, char **argv)
 	auto frames = frameb.CreateSync(FRAME_SIZE);
 	FILE *fp = fopen("result.y4m", "wb");
 	fprintf(fp, "YUV4MPEG2 W%d H%d F%d:%d Ip A1:1 C420\n", i.w, i.h, i.fps_n, i.fps_d);
-
+	char c = '%';
 	for (unsigned j = 0; j < i.n_frame; ++j) {
 		fputs("FRAME\n", fp);
 		g.Generate(frames.get_gpu_wo());
 		fwrite(frames.get_cpu_ro(), sizeof(uint8_t), FRAME_SIZE, fp);
+		if(j % 36 == 0)
+			printf("%d%c\n", (j/(36))*10+10,c) ;
 	}
 
 	fclose(fp);
