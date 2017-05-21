@@ -45,24 +45,40 @@ __device__ void fill_boundry(float *sum, const int yt, const int xt, const int h
 	int yb, xb, curb;
 	if(yt-1 == -1){
 		yb = oy+yt-1, xb = ox+xt;
+		yb = (yb < hb) ? yb : hb-1;
+		xb = (xb < wb) ? xb : wb-1;
+		yb = (yb < 0) ? 0 : yb;
+		xb = (xb < 0) ? 0 : xb;
 		curb = wb*yb+xb;
 		assign_add(sum, &background[curb*3]);
 		assign_sub(sum, fill);
 	}
 	if(xt-1 == -1){
 		yb = oy+yt, xb = ox+xt-1;
+		yb = (yb < hb) ? yb : hb-1;
+		xb = (xb < wb) ? xb : wb-1;
+		yb = (yb < 0) ? 0 : yb;
+		xb = (xb < 0) ? 0 : xb;
 		curb = wb*yb+xb;
 		assign_add(sum, &background[curb*3]);
 		assign_sub(sum, fill);
 	}
 	if(yt+1 == ht){
 		yb = oy+yt+1, xb = ox+xt;
+		yb = (yb < hb) ? yb : hb-1;
+		xb = (xb < wb) ? xb : wb-1;
+		yb = (yb < 0) ? 0 : yb;
+		xb = (xb < 0) ? 0 : xb;
 		curb = wb*yb+xb;
 		assign_add(sum, &background[curb*3]);
 		assign_sub(sum, fill);
 	}
 	if(xt+1 == wt){
 		yb = oy+yt, xb = ox+xt+1;
+		yb = (yb < hb) ? yb : hb-1;
+		xb = (xb < wb) ? xb : wb-1;
+		yb = (yb < 0) ? 0 : yb;
+		xb = (xb < 0) ? 0 : xb;
 		curb = wb*yb+xb;
 		assign_add(sum, &background[curb*3]);
 		assign_sub(sum, fill);
@@ -89,6 +105,8 @@ __global__ void	CalculateFixed(
 				yb = oy+yt-1, xb = ox+xt;
 				yb = (yb < hb) ? yb : hb-1;
 				xb = (xb < wb) ? xb : wb-1;
+				yb = (yb < 0) ? 0 : yb;
+				xb = (xb < 0) ? 0 : xb;
 				curb = wb*yb+xb;
 				assign_add(sum, &background[curb*3]);
 			}
@@ -99,6 +117,8 @@ __global__ void	CalculateFixed(
 				yb = oy+yt, xb = ox+xt-1;
 				yb = (yb < hb) ? yb : hb-1;
 				xb = (xb < wb) ? xb : wb-1;
+				yb = (yb < 0) ? 0 : yb;
+				xb = (xb < 0) ? 0 : xb;
 				curb = wb*yb+xb;
 				assign_add(sum, &background[curb*3]);
 			}
@@ -109,6 +129,8 @@ __global__ void	CalculateFixed(
 				yb = oy+yt+1, xb = ox+xt;
 				yb = (yb < hb) ? yb : hb-1;
 				xb = (xb < wb) ? xb : wb-1;
+				yb = (yb < 0) ? 0 : yb;
+				xb = (xb < 0) ? 0 : xb;
 				curb = wb*yb+xb;
 				assign_add(sum, &background[curb*3]);
 			}
@@ -119,6 +141,8 @@ __global__ void	CalculateFixed(
 				yb = oy+yt, xb = ox+xt+1;
 				yb = (yb < hb) ? yb : hb-1;
 				xb = (xb < wb) ? xb : wb-1;
+				yb = (yb < 0) ? 0 : yb;
+				xb = (xb < 0) ? 0 : xb;
 				curb = wb*yb+xb;
 				assign_add(sum, &background[curb*3]);
 			}
