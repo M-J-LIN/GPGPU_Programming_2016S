@@ -87,6 +87,8 @@ __global__ void	CalculateFixed(
 			assign_sub(sum, &target[Nt*3]);
 			if(mask[Nt] < 127.0f){
 				yb = oy+yt-1, xb = ox+xt;
+				yb = (yb < hb) ? yb : hb-1;
+				xb = (xb < wb) ? xb : wb-1;
 				curb = wb*yb+xb;
 				assign_add(sum, &background[curb*3]);
 			}
@@ -95,6 +97,8 @@ __global__ void	CalculateFixed(
 			assign_sub(sum, &target[Wt*3]);
 			if(mask[Wt] < 127.0f){
 				yb = oy+yt, xb = ox+xt-1;
+				yb = (yb < hb) ? yb : hb-1;
+				xb = (xb < wb) ? xb : wb-1;
 				curb = wb*yb+xb;
 				assign_add(sum, &background[curb*3]);
 			}
@@ -103,6 +107,8 @@ __global__ void	CalculateFixed(
 			assign_sub(sum, &target[St*3]);
 			if(mask[St] < 127.0f){
 				yb = oy+yt+1, xb = ox+xt;
+				yb = (yb < hb) ? yb : hb-1;
+				xb = (xb < wb) ? xb : wb-1;
 				curb = wb*yb+xb;
 				assign_add(sum, &background[curb*3]);
 			}
@@ -111,6 +117,8 @@ __global__ void	CalculateFixed(
 			assign_sub(sum, &target[Et*3]);
 			if(mask[Et] < 127.0f){
 				yb = oy+yt, xb = ox+xt+1;
+				yb = (yb < hb) ? yb : hb-1;
+				xb = (xb < wb) ? xb : wb-1;
 				curb = wb*yb+xb;
 				assign_add(sum, &background[curb*3]);
 			}
